@@ -1,4 +1,4 @@
-# launch-editor
+# [WIP] launch-editor
 
 [![Coverage Status](https://coveralls.io/repos/github/umijs/launch-editor/badge.svg?branch=master)](https://coveralls.io/github/umijs/launch-editor?branch=master) [![NPM version](https://img.shields.io/npm/v/@umijs/launch-editor.svg?style=flat)](https://npmjs.org/package/@umijs/launch-editor) [![NPM downloads](http://img.shields.io/npm/dm/@umijs/launch-editor.svg?style=flat)](https://npmjs.org/package/@umijs/launch-editor)
 
