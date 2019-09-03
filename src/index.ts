@@ -1,1 +1,3 @@
-export default (a: number): number => a + a;
+const A = (a: number): number => a + a;
+
+module.exports = A;

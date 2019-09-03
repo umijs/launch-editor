@@ -4,17 +4,17 @@
   "description": "launch your code editor using Node.js.",
   "main": "lib/index.js",
   "scripts": {
-    "dev": "father-build -w",
+    "dev": "concurrently \"father-build -w\" \"nodemon test/test.js\"",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
-    "build": "father-build",
+    "build": "father-build && tsc",
     "test": "umi-test --coverage"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/umijs/launch-editor.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["editor", "launch", "nodejs"],
+  "author": "ycjcl868",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/umijs/launch-editor/issues"
@@ -23,8 +23,13 @@
   "devDependencies": {
     "@types/jest": "^24.0.18",
     "@types/node": "^12.7.3",
+    "concurrently": "^4.1.2",
     "coverage": "^0.4.0",
     "father-build": "^1.8.0",
+    "nodemon": "^1.19.2",
     "umi-test": "^1.7.1"
+  },
+  "dependencies": {
+    "cross-spawn": "^7.0.0"
   }
 }

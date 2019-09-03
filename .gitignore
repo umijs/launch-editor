@@ -6,3 +6,4 @@ dist
 lib
 *.sw*
 *.un~
+*.js.map
