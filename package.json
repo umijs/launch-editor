@@ -1,0 +1,29 @@
+{
+  "name": "@umijs/launch-editor",
+  "version": "0.0.1",
+  "description": "launch your code editor using Node.js.",
+  "main": "lib/index.js",
+  "scripts": {
+    "dev": "father-build -w",
+    "coveralls": "cat ./coverage/lcov.info | coveralls",
+    "build": "father-build",
+    "test": "umi-test --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/umijs/launch-editor.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/umijs/launch-editor/issues"
+  },
+  "homepage": "https://github.com/umijs/launch-editor#readme",
+  "devDependencies": {
+    "@types/jest": "^24.0.18",
+    "@types/node": "^12.7.3",
+    "coverage": "^0.4.0",
+    "umi-test": "^1.7.1"
+  }
+}
