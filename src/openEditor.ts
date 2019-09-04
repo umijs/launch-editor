@@ -1,6 +1,7 @@
 import * as os from 'os';
 import * as childProcess from 'child_process';
 import * as path from 'path';
+import { ERROR_CODE } from './enum';
 
 import getArgs from './getArgs';
 
@@ -25,8 +26,10 @@ export default async ({
 }) => {
   return new Promise((resolve, reject) => {
     if (!editor) {
-      resolve({
-        err: 'no editor avalibe'
+      reject({
+        editor,
+        code: ERROR_CODE.UNKNOWN,
+        message: 'no editor avalibe',
       })
     }
 
@@ -75,18 +78,23 @@ export default async ({
     } else {
       _childProcess = childProcess.spawn(editor, args, { stdio: 'inherit' });
     }
+    console.log('_childProcess', _childProcess);
     _childProcess.on('exit', function(errorCode) {
       _childProcess = null;
 
+      console.log('_childProcess errorCode', errorCode);
       if (errorCode) {
-        resolve({
-          err: '(code ' + errorCode + ')'
-        })
+        resolve('(code ' + errorCode + ')');
       }
     });
 
     _childProcess.on('error', function(error) {
-      reject(error)
+      console.log('_childProcess error', error);
+      reject({
+        editor,
+        code: ERROR_CODE.ERROR,
+        message: error.message,
+      })
     });
 
     setTimeout(() => {

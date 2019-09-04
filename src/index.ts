@@ -43,7 +43,6 @@ async function launchEditor (file, specifiedEditor, onErrorCallback) {
   const parsed = parseFile(file)
   let { fileName } = parsed
   const { lineNumber, colNumber } = parsed
-
   if (!fs.existsSync(fileName)) {
     return;
   }
@@ -68,10 +67,14 @@ async function launchEditor (file, specifiedEditor, onErrorCallback) {
       editor,
       args,
       ...params
-    })
+    });
+    console.log('openEditor after');
   } catch (e) {
+    console.error('first open', e)
     // try process when command line failed
     const [editor, ...args] = guessEditor(specifiedEditor, true);
+
+    console.log('editor', editor);
 
     await openEditor({
       editor,
@@ -86,4 +89,4 @@ async function launchEditor (file, specifiedEditor, onErrorCallback) {
 
 }
 
-export default launchEditor
+export = launchEditor
