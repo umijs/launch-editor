@@ -41,6 +41,7 @@
     "access": "public"
   },
   "dependencies": {
+    "@types/chalk": "^2.2.0",
     "cross-spawn": "^7.0.0"
   }
 }
