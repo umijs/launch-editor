@@ -1,19 +1,43 @@
-export default {
-  atom: {
-    '/Applications/Atom.app/Contents/MacOS/Atom': '/Applications/Atom.app/Contents/MacOS/Atom',
+import * as path from 'path';
+
+export default [
+  {
+    name: 'code',
+    process: ['Visual Studio Code.app'],
+    location: [
+      path.join('/', 'Applications', 'Visual Studio Code.app'),
+    ],
+    commands: [
+      'code',
+      '/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code',
+      'code-insiders',
+    ],
+    opts: [],
   },
-  subl: {
-    '/Applications/Sublime Text.app/Contents/MacOS/Sublime Text': '/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl',
-    '/Applications/Sublime Text 2.app/Contents/MacOS/Sublime Text 2': '/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl',
-    '/Applications/Sublime Text Dev.app/Contents/MacOS/Sublime Text': '/Applications/Sublime Text Dev.app/Contents/SharedSupport/bin/subl',
+  {
+    name: 'atom',
+    process: ['Atom.app'],
+    location: [
+      path.join('/', 'Applications', 'Atom.app'),
+    ],
+    commands: [
+      'atom',
+      '/Applications/Atom.app/Contents/MacOS/Atom',
+    ],
   },
-  code: {
-    '/Applications/Visual Studio Code.app/Contents/MacOS/Electron': '/Applications/Visual Studio Code.app/Contents/MacOS/Electron',
+  {
+    name: 'subl',
+    process: ['Sublime Text'],
+    location: [
+      path.join('/', 'Applications', 'Sublime Text.app'),
+      path.join('/', 'Applications', 'Sublime Text 2.app'),
+      path.join('/', 'Applications', 'Sublime Text Dev.app'),
+    ],
+    commands: [
+      'subl',
+      '/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl',
+      '/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl',
+      '/Applications/Sublime Text Dev.app/Contents/SharedSupport/bin/subl',
+    ],
   },
-  'code-insiders': {
-    '/Applications/Visual Studio Code - Insiders.app/Contents/MacOS/Electron': '/Applications/Visual Studio Code - Insiders.app/Contents/MacOS/Electron',
-  },
-  webstorm: {
-    '/Applications/WebStorm.app/Contents/MacOS/webstorm': '/Applications/WebStorm.app/Contents/MacOS/webstorm',
-  }
-}
+]

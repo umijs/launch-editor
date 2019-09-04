@@ -2,35 +2,35 @@ import * as os from 'os';
 import * as childProcess from 'child_process';
 import * as path from 'path';
 import { ERROR_CODE } from './enum';
+import EditorError from './error';
 
 import getArgs from './getArgs';
 
-function isTerminalEditor (editor) {
-  switch (editor) {
-    case 'vim':
-    case 'emacs':
-    case 'nano':
-      return true
-  }
-  return false
-}
+// function isTerminalEditor (editor) {
+//   switch (editor) {
+//     case 'vim':
+//     case 'emacs':
+//     case 'nano':
+//       return true
+//   }
+//   return false
+// }
 
-let _childProcess = null
-
-export default async ({
-  editor,
-  args,
+const openEditor = async ({
+  name,
+  commands,
+  args = [],
   fileName,
   lineNumber,
   colNumber,
 }) => {
   return new Promise((resolve, reject) => {
-    if (!editor) {
-      reject({
-        editor,
+    if (!commands.length) {
+      const error = new EditorError({
+        editor: name,
         code: ERROR_CODE.UNKNOWN,
-        message: 'no editor avalibe',
-      })
+      }, 'no editor avalibe');
+      reject(error)
     }
 
     if (
@@ -48,57 +48,51 @@ export default async ({
     }
 
     if (lineNumber) {
-      args = args.concat(
-        getArgs(
-          editor,
-          fileName,
-          lineNumber,
-          colNumber,
-        )
+      const extraArgs = getArgs(
+        name,
+        fileName,
+        lineNumber,
+        colNumber,
       );
+      args = args.concat(extraArgs);
     } else {
       args.push(fileName);
     }
 
-    if (_childProcess && isTerminalEditor(editor)) {
-      // There's an existing editor process already and it's attached
-      // to the terminal, so go kill it. Otherwise two separate editor
-      // instances attach to the stdin/stdout which gets confusing.
-      _childProcess.kill('SIGKILL');
+    /* eslint-disable no-restricted-syntax */
+    for (const command of commands) {
+      try {
+        let _childProcess = null;
+        if (process.platform === 'win32') {
+          // On Windows, launch the editor in a shell because spawn can only
+          // launch .exe files.
+          _childProcess = childProcess.spawnSync(
+            'cmd.exe',
+            ['/C', command].concat(args),
+            { stdio: 'inherit' },
+          );
+        } else {
+          _childProcess = childProcess.spawnSync(command, args, { stdio: 'inherit' });
+        }
+        if (_childProcess && _childProcess.status !== null) {
+          resolve({
+            success: true,
+            editorBin: command,
+            message: '成功打开编辑器',
+          });
+          break;
+        }
+      } catch (e) {}
     }
+    /* eslint-enable  */
 
-    if (process.platform === 'win32') {
-      // On Windows, launch the editor in a shell because spawn can only
-      // launch .exe files.
-      _childProcess = childProcess.spawn(
-        'cmd.exe',
-        ['/C', editor].concat(args),
-        { stdio: 'inherit' }
-      );
-    } else {
-      _childProcess = childProcess.spawn(editor, args, { stdio: 'inherit' });
-    }
-    console.log('_childProcess', _childProcess);
-    _childProcess.on('exit', function(errorCode) {
-      _childProcess = null;
+    const error = new EditorError({
+      success: false,
+      editor: name,
+    }, '不能打开编辑器');
 
-      console.log('_childProcess errorCode', errorCode);
-      if (errorCode) {
-        resolve('(code ' + errorCode + ')');
-      }
-    });
-
-    _childProcess.on('error', function(error) {
-      console.log('_childProcess error', error);
-      reject({
-        editor,
-        code: ERROR_CODE.ERROR,
-        message: error.message,
-      })
-    });
-
-    setTimeout(() => {
-      resolve()
-    }, 2500);
+    reject(error);
   });
 }
+
+export default openEditor;

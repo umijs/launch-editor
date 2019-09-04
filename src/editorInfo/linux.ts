@@ -1,17 +1,34 @@
-export default {
-  atom: {
-    atom: 'atom',
+// import * as path from 'path';
+
+export default [
+  {
+    name: 'code',
+    process: ['code'],
+    location: [
+    ],
+    commands: [
+      'code',
+      'code-insiders',
+    ],
+    opts: [],
   },
-  code: {
-    code: 'code',
+  {
+    name: 'atom',
+    process: ['atom'],
+    location: [
+    ],
+    commands: [
+      'atom',
+    ],
   },
-  'code-insiders': {
-    'code-insiders': 'code-insiders',
+  {
+    name: 'subl',
+    process: ['sublime_text'],
+    location: [
+    ],
+    commands: [
+      'subl',
+    ],
   },
-  subl: {
-    sublime_text: 'subl',
-  },
-  webstorm: {
-    'webstorm.sh': 'webstorm'
-  }
-}
+]
+
