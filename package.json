@@ -2,11 +2,12 @@
   "name": "@umijs/launch-editor",
   "version": "0.0.1",
   "description": "launch your code editor using Node.js.",
-  "main": "dist/index.js",
+  "main": "lib/index.js",
+  "module": "es/index.js",
   "scripts": {
-    "dev": "concurrently \"father-build -w\" \"nodemon test/test.js\"",
+    "dev": "npm run build && node test/test.js",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
-    "build": "father-build",
+    "build": "tsc",
     "test": "umi-test --coverage"
   },
   "repository": {
@@ -29,11 +30,12 @@
   "devDependencies": {
     "@types/jest": "^24.0.18",
     "@types/node": "^12.7.3",
+    "@types/shell-quote": "^1.6.1",
     "@umijs/fabric": "^1.1.10",
     "concurrently": "^4.1.2",
     "coverage": "^0.4.0",
-    "father-build": "^1.8.0",
     "nodemon": "^1.19.2",
+    "typescript": "^3.6.2",
     "umi-test": "^1.7.1"
   },
   "license": "MIT",
@@ -42,6 +44,7 @@
   },
   "dependencies": {
     "@types/chalk": "^2.2.0",
-    "cross-spawn": "^7.0.0"
+    "cross-spawn": "^7.0.0",
+    "shell-quote": "^1.7.2"
   }
 }

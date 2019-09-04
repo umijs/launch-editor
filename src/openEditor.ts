@@ -23,7 +23,7 @@ export default async ({
   lineNumber,
   colNumber,
 }) => {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     if (!editor) {
       resolve({
         err: 'no editor avalibe'
@@ -44,7 +44,6 @@ export default async ({
       fileName = path.relative('', fileName);
     }
 
-    let workspace = null;
     if (lineNumber) {
       args = args.concat(
         getArgs(
@@ -52,7 +51,6 @@ export default async ({
           fileName,
           lineNumber,
           colNumber,
-          workspace
         )
       );
     } else {
@@ -88,9 +86,7 @@ export default async ({
     });
 
     _childProcess.on('error', function(error) {
-      resolve({
-        err: error.message
-      })
+      reject(error)
     });
 
     setTimeout(() => {

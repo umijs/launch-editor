@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import * as chalk from 'chalk';
+import chalk from 'chalk';
 
 import guessEditor from './guessEditor';
 import openEditor from './openEditor';
@@ -63,26 +63,27 @@ async function launchEditor (file, specifiedEditor, onErrorCallback) {
     colNumber
   }
 
-  const { err } = await openEditor({
-    editor,
-    args,
-    ...params
-  })
+  try {
+    await openEditor({
+      editor,
+      args,
+      ...params
+    })
+  } catch (e) {
+    // try process when command line failed
+    const [editor, ...args] = guessEditor(specifiedEditor, true);
 
-  // try process when command line failed
-  if (err) {
-    let [editor, ...args] = guessEditor(specifiedEditor, true);
-
-    const { err } = await openEditor({
+    await openEditor({
       editor,
       args,
       ...params
     })
 
-    if (err) {
-      onErrorCallback(fileName, 'Open editor error');
-    }
+    // if (err) {
+    //   onErrorCallback(fileName, 'Open editor error');
+    // }
   }
+
 }
 
 export default launchEditor

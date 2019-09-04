@@ -1,17 +1,12 @@
+import * as path from 'path';
+import * as shellQuote from 'shell-quote';
+import * as childProcess from 'child_process';
 
+import COMMON_EDITORS_OSX from './editorInfo/osx';
+import COMMON_EDITORS_LINUX from './editorInfo/linux';
+import COMMON_EDITORS_WIN from './editorInfo/windows';
 
-const path = require('path')
-const shellQuote = require('shell-quote')
-const childProcess = require('child_process')
-
-// Map from full process name to binary that starts the process
-// We can't just re-use full process name, because it will spawn a new instance
-// of the app every time
-const COMMON_EDITORS_OSX = require('./editorInfo/osx')
-const COMMON_EDITORS_LINUX = require('./editorInfo/linux')
-const COMMON_EDITORS_WIN = require('./editorInfo/windows')
-
-function getAllConfig(config, isArray) {
+function getAllConfig(config, isArray = false) {
   if (isArray) {
     let result = [];
     for (const item of config) {
@@ -26,7 +21,7 @@ function getAllConfig(config, isArray) {
     return result;
 }
 
-export default (specifiedEditor, needGuess) => {
+export default (specifiedEditor, needGuess = false) => {
   if (specifiedEditor && !needGuess) {
     return shellQuote.parse(specifiedEditor)
   }
