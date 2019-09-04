@@ -26,7 +26,7 @@ const launchEditor = require('@umijs/launch-editor');
 
 (async () => {
   try {
-    await launchEditor(config)
+    await launchEditor.default(config)
   } catch (e) {}
 })()
 
@@ -59,7 +59,7 @@ files or project path you want to open in the editor.
 Type: `object`
 
 ##### editor
-Type: `string`
+Type: `string` | `string[]`
 Default: Auto-detected (current process or existed editors, envs)
 
 the function return a `Promise`, if having an error when launching the editor, there are some error `code` and `description`, `editor` (if you specify) you might use.
@@ -69,6 +69,12 @@ the function return a `Promise`, if having an error when launching the editor, t
 | `EPERM` | the path is permission denied |
 | `UNKNOWN` | couldn't find your editor, might not install |
 | `OTHER` | unknown error couldn't catch |
+
+##### editorOpts
+Type: `object`
+Default: `[]`
+
+Extra options for the specified editor params, e.g., VSCode using  `["-n"]` to force to open a new window.
 
 ## Development
 

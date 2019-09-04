@@ -1,7 +1,7 @@
-import aa from '../src'
+import * as aa from '../'
 
 describe('test', () => {
   it('a', () => {
-    expect(aa(1)).toEqual(2);
+    expect(aa()).toEqual(2);
   })
 })

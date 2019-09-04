@@ -1,3 +1,5 @@
-import a from '../dist'
+const a = require('../dist/index');
 
-console.log(a(1));
+console.log(a(__dirname, {
+  editor: 'code',
+}));
