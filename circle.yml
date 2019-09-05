@@ -12,13 +12,7 @@ jobs:
       CI: true
     steps:
       - checkout
-      - restore_cache:
-          key: node-modules-{{ checksum "package.json" }}
       - run: npm run build
       - run:
           command: npm run test
           no_output_timeout: 300m
-      - save_cache:
-          key: node-modules-{{ checksum "package.json" }}
-          paths:
-            - ./node_modules
