@@ -84,6 +84,7 @@ export default (specifiedEditor): IGuessEdiotr | undefined => {
           if (findRunning) {
             windowsEditorsClone[i].commands.unshift(findRunning);
           }
+          return false;
         });
         if (processBy) {
           return !!processBy;
