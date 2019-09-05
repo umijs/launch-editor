@@ -15,4 +15,17 @@ export default [
     ],
     opts: [],
   },
+  {
+    name: 'subl',
+    process: ['sublime_text.exe'],
+    location: [
+      path.join(os.homedir(), '..', 'Program Files', 'Sublime Text 3'),
+      path.join(os.homedir(), '..', 'Program Files', 'Sublime Text'),
+    ],
+    commands: [
+      'subl',
+      path.join(os.homedir(), '..', 'Program Files', 'Sublime Text 3', 'subl.exe'),
+    ],
+    opts: [],
+  },
 ]
