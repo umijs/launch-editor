@@ -50,6 +50,7 @@ export default (specifiedEditor): IGuessEdiotr | undefined => {
         if (processBy) {
           return !!processBy;
         }
+        console.log('use location find');
 
         // via path location
         return location.some(loc => {
@@ -92,13 +93,10 @@ export default (specifiedEditor): IGuessEdiotr | undefined => {
 
       return COMMON_EDITORS_LINUX.find(item => {
         const { process } = item;
-        const processBy = process.some(p => {
+        return process.some(p => {
           console.log('output.indexOf(p) > -1', output.indexOf(p) > -1)
           return output.indexOf(p) > -1;
         });
-        if (processBy) {
-          return !!processBy;
-        }
 
         // via path location
         // return location.some(loc => {

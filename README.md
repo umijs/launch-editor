@@ -96,9 +96,9 @@ $ npm run test
 
 | Value | Editor | Linux | Windows | OSX |
 |--------|------|:------:|:------:|:------:|
-| `code` | [Visual Studio Code](https://code.visualstudio.com/) ||||
-| `atom` | [Atom](https://atom.io/) ||||
+| `code` | [Visual Studio Code](https://code.visualstudio.com/) |||✓|
+| `atom` | [Atom](https://atom.io/) |||✓|
 | `code-insiders` | [Visual Studio Code Insiders](https://code.visualstudio.com/insiders/) ||||
-| `sublime` | [Sublime Text](https://www.sublimetext.com/) ||||
-| `webstorm` | [WebStorm](https://www.jetbrains.com/webstorm/) ||||
+| `sublime` | [Sublime Text](https://www.sublimetext.com/) |||✓|
+| `webstorm` | [WebStorm](https://www.jetbrains.com/webstorm/) |||✓|
 | `idea` | [IDEA](https://www.jetbrains.com/idea/) ||||

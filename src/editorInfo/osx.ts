@@ -40,4 +40,16 @@ export default [
       '/Applications/Sublime Text Dev.app/Contents/SharedSupport/bin/subl',
     ],
   },
+  {
+    name: 'webstorm',
+    process: ['webstorm'],
+    location: [
+      path.join('/', 'Applications', 'WebStorm.app'),
+    ],
+    commands: [
+      'webstorm',
+      'wstorm',
+      '/Applications/WebStorm.app/Contents/MacOS/webstorm',
+    ],
+  },
 ]
