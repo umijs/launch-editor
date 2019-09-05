@@ -29,7 +29,6 @@
   "devDependencies": {
     "@types/jest": "^24.0.18",
     "@types/node": "^12.7.3",
-    "@types/shell-quote": "^1.6.1",
     "@umijs/fabric": "^1.1.10",
     "concurrently": "^4.1.2",
     "coverage": "^0.4.0",
@@ -43,7 +42,6 @@
   },
   "dependencies": {
     "@types/chalk": "^2.2.0",
-    "cross-spawn": "^7.0.0",
-    "shell-quote": "^1.7.2"
+    "cross-spawn": "^7.0.0"
   }
 }

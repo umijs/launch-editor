@@ -5,7 +5,6 @@
  *                    => (未找到) => 找安装路径
  */
 import * as fs from 'fs';
-// import * as shellQuote from 'shell-quote';
 import * as childProcess from 'child_process';
 import COMMON_EDITORS_OSX from './editorInfo/osx';
 import COMMON_EDITORS_LINUX from './editorInfo/linux';

@@ -5,10 +5,10 @@
 ✏️ Launch your code editor using Node.js.
 
 ## Feature
-- [ ] support `async/await`
-- [ ] error handlers and codes
+- [x] support `async/await`
+- [x] error handlers and codes
 - [ ] support more editors and platforms.
-- [ ] specify the editor to launch
+- [x] specify the editor to launch
 
 
 ## Install
