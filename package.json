@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "npm run build && node test/test.js",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
-    "build": "node_modules/.bin/tsc",
+    "build": "tsc",
     "test": "umi-test --coverage"
   },
   "repository": {
