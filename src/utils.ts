@@ -13,17 +13,17 @@ export const getOS = (): SYSTEMS => {
   return undefined;
 };
 
+export type IParseFile = (file: string) => Record<'fileName' | 'lineNumber' | 'colNumber', string>;
 
-export const parseFile = (file) => {
-  const positionRE = /:(\d+)(:(\d+))?$/
-  const fileName = file.replace(positionRE, '')
-  const match = file.match(positionRE)
-  const lineNumber = match && match[1]
-  const colNumber = match && match[3]
+export const parseFile: IParseFile = (file) => {
+  const fileName = file.replace(/:(\d+)(:(\d+))?/g, '')
+  const match = file.match(/:(\d+)(:(\d+))?/)
+  const lineNumber = match && match[1];
+  const colNumber = match && match[3];
+
   return {
     fileName,
-    lineNumber,
-    colNumber
+    lineNumber: lineNumber || '',
+    colNumber: colNumber || '',
   }
 }
-
