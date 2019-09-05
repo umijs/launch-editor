@@ -10,7 +10,18 @@ export default [
     commands: [
       'code',
       '/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code',
+    ],
+    opts: [],
+  },
+  {
+    name: 'code-insiders',
+    process: ['Visual Studio Code - Insiders.app'],
+    location: [
+      path.join('/', 'Applications', 'Visual Studio Code - Insiders.app'),
+    ],
+    commands: [
       'code-insiders',
+      '/Applications/Visual Studio Code - Insiders.app/Contents/Resources/app/bin/code-insiders',
     ],
     opts: [],
   },

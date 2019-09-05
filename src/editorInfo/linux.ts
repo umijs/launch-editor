@@ -8,6 +8,15 @@ export default [
     ],
     commands: [
       'code',
+    ],
+    opts: [],
+  },
+  {
+    name: 'code-insiders',
+    process: ['code-insiders'],
+    location: [
+    ],
+    commands: [
       'code-insiders',
     ],
     opts: [],

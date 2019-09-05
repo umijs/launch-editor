@@ -11,7 +11,6 @@ export default [
     commands: [
       'code',
       path.join(os.homedir(), 'AppData', 'Local', 'Programs', 'Microsoft VS Code', 'bin', 'code.cmd'),
-      'code-insiders',
     ],
     opts: [],
   },
@@ -25,6 +24,16 @@ export default [
     commands: [
       'subl',
       path.join(os.homedir(), '..', 'Program Files', 'Sublime Text 3', 'subl.exe'),
+    ],
+    opts: [],
+  },
+  {
+    name: 'webstorm',
+    process: ['webstorm.exe', 'webstorm64.exe'],
+    location: [],
+    commands: [
+      'webstorm',
+      'wstorm',
     ],
     opts: [],
   },
