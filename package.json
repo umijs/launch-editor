@@ -4,18 +4,24 @@
   "description": "launch your code editor using Node.js.",
   "main": "lib/index.js",
   "scripts": {
-    "dev": "concurrently \"father-build -w\" \"nodemon test/test.js\"",
+    "dev": "npm run build && node test/test.js",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
-    "build": "father-build && tsc",
+    "build": "tsc",
     "test": "umi-test --coverage"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/umijs/launch-editor.git"
   },
-  "keywords": ["editor", "launch", "nodejs"],
-  "author": "ycjcl868",
-  "license": "ISC",
+  "keywords": [
+    "editor",
+    "launch",
+    "nodejs"
+  ],
+  "authors": {
+    "name": "ycjcl868",
+    "email": "45808948@qq.com"
+  },
   "bugs": {
     "url": "https://github.com/umijs/launch-editor/issues"
   },
@@ -23,13 +29,19 @@
   "devDependencies": {
     "@types/jest": "^24.0.18",
     "@types/node": "^12.7.3",
+    "@umijs/fabric": "^1.1.10",
     "concurrently": "^4.1.2",
     "coverage": "^0.4.0",
-    "father-build": "^1.8.0",
     "nodemon": "^1.19.2",
+    "typescript": "^3.6.2",
     "umi-test": "^1.7.1"
   },
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
+    "@types/chalk": "^2.2.0",
     "cross-spawn": "^7.0.0"
   }
 }
