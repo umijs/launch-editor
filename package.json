@@ -3,11 +3,10 @@
   "version": "0.0.1",
   "description": "launch your code editor using Node.js.",
   "main": "lib/index.js",
-  "module": "es/index.js",
   "scripts": {
     "dev": "npm run build && node test/test.js",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
-    "build": "tsc",
+    "build": "node_modules/.bin/tsc",
     "test": "umi-test --coverage"
   },
   "repository": {
