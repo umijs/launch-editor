@@ -1,14 +1,14 @@
 /**
- * 探测可能存在的命令：
+ * 探测可能存在的命令 ：
  * 1、指定了编辑器 => 依旧找 map 里的 commands
  * 2、未指定 => 先找进程 =>(找到) => 返回 commands
- *                    => (未找到) => 找安装路径
+ *                    => (未找到) => 找安装路径 （除 Windows）
  */
 import * as fs from 'fs';
 import * as childProcess from 'child_process';
 import COMMON_EDITORS_OSX from './editorInfo/osx';
 import COMMON_EDITORS_LINUX from './editorInfo/linux';
-// import COMMON_EDITORS_WIN from './editorInfo/windows';
+import COMMON_EDITORS_WIN from './editorInfo/windows';
 
 import { getOS } from './utils';
 // import { IEditor } from './enum';
@@ -60,24 +60,49 @@ export default (specifiedEditor): IGuessEdiotr | undefined => {
       });
     }
 
-    // if (process.platform === 'win32') {
-    //   const currentConfig = specifiedEditor ? COMMON_EDITORS_WIN[specifiedEditor] : COMMON_EDITORS_WIN;
-    //   // Some processes need elevated rights to get its executable path.
-    //   // Just filter them out upfront. This also saves 10-20ms on the command.
-    //   const output = childProcess
-    //     .execSync(
-    //       'wmic process where "executablepath is not null" get executablepath',
-    //     )
-    //     .toString();
-    //   const runningProcesses = output.split('\r\n');
-    //   for (let i = 0; i < runningProcesses.length; i++) {
-    //     const processPath = runningProcesses[i].trim();
-    //     const processName = path.basename(processPath);
-    //     if (currentConfig.indexOf(processName) !== -1) {
-    //       return [processPath];
-    //     }
-    //   }
-    // }
+    if (process.platform === 'win32') {
+      if (specifiedEditor) {
+        return COMMON_EDITORS_OSX.find(item => item.name === specifiedEditor);
+      }
+      // Some processes need elevated rights to get its executable path.
+      // Just filter them out upfront. This also saves 10-20ms on the command.
+      const output = childProcess
+        .execSync(
+          'wmic process where "executablepath is not null" get executablepath',
+        )
+        .toString();
+      const runningProcesses = output.split('\r\n');
+
+      const windowsEditorsClone = COMMON_EDITORS_WIN;
+      console.log('before windowsEditorsClone', windowsEditorsClone);
+
+      // 通过进程找编辑器
+      const processEditor = windowsEditorsClone.find((item, i) => {
+        const { process, location } = item;
+        const processBy = process.some(p => {
+          const findRunning = runningProcesses.find(runProc => runProc.indexOf(p) > -1);
+          if (findRunning) {
+            windowsEditorsClone[i].commands.unshift(findRunning);
+          }
+        });
+        if (processBy) {
+          return !!processBy;
+        }
+        console.log('use location find');
+
+        // via path location
+        return location.some(loc => {
+          const isExisted = fs.existsSync(loc);
+          console.log('loc', loc, isExisted);
+          return isExisted;
+        })
+      });
+
+      console.log('after windowsEditorsClone', windowsEditorsClone);
+      console.log('processEditor', processEditor);
+
+      return processEditor;
+    }
 
     if (process.platform === 'linux') {
       if (specifiedEditor) {
