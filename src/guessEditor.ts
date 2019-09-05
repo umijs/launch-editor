@@ -80,12 +80,15 @@ export default (specifiedEditor): IGuessEdiotr | undefined => {
       const processEditor = windowsEditorsClone.find((item, i) => {
         const { process, location } = item;
         const processBy = process.some(p => {
-          const findRunning = runningProcesses.find(runProc => runProc.indexOf(p) > -1);
+          const findRunning = runningProcesses.find(runProc => runProc.trim().indexOf(p) > -1);
+          console.log('findRunning', findRunning);
           if (findRunning) {
-            windowsEditorsClone[i].commands.unshift(findRunning);
+            windowsEditorsClone[i].commands.unshift(findRunning.trim());
+            return true;
           }
           return false;
         });
+        console.log('processBy', processBy);
         if (processBy) {
           return !!processBy;
         }
