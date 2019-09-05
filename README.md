@@ -76,6 +76,27 @@ Default: `[]`
 
 Extra options for the specified editor params, e.g., VSCode using  `["-n"]` to force to open a new window.
 
+### getEditors(): void
+guess how many editors you have in current system.
+
+Commonjs
+
+```ts
+const { getEditors }  = require('@umijs/launch-editor');
+
+guessEditor();
+
+=>
+
+[
+  { name: 'subl', commands: [''] },
+  { name: 'vscode', commands: [''] },
+  { name: 'idea', commands: [''] },
+  { name: 'atom', commands: [''] },
+]
+```
+
+
 ## Development
 
 ```sh
@@ -98,7 +119,7 @@ $ npm run test
 |--------|------|:------:|:------:|:------:|
 | `code` | [Visual Studio Code](https://code.visualstudio.com/) |||✓|
 | `atom` | [Atom](https://atom.io/) |||✓|
-| `code-insiders` | [Visual Studio Code Insiders](https://code.visualstudio.com/insiders/) ||||
+| `code-insiders` | [Visual Studio Code Insiders](https://code.visualstudio.com/insiders/) |||✓|
 | `sublime` | [Sublime Text](https://www.sublimetext.com/) |||✓|
 | `webstorm` | [WebStorm](https://www.jetbrains.com/webstorm/) |||✓|
-| `idea` | [IDEA](https://www.jetbrains.com/idea/) ||||
+| `idea` | [IDEA](https://www.jetbrains.com/idea/) |||✓|

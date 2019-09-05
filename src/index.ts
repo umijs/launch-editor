@@ -72,7 +72,6 @@ const launchEditor = async (file: string, options: IOptions = {}) => {
     //   onErrorCallback(fileName, 'Open editor error');
     // }
   }
-
 }
 
 export = launchEditor
