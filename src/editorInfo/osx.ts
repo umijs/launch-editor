@@ -53,7 +53,7 @@ export default [
   },
   {
     name: 'webstorm',
-    process: ['webstorm'],
+    process: ['WebStorm.app'],
     location: [
       path.join('/', 'Applications', 'WebStorm.app'),
     ],
@@ -61,6 +61,18 @@ export default [
       'webstorm',
       'wstorm',
       '/Applications/WebStorm.app/Contents/MacOS/webstorm',
+    ],
+  },
+  {
+    name: 'idea',
+    process: ['IntelliJ IDEA.app'],
+    location: [
+      path.join('/', 'Applications', 'IntelliJ IDEA.app'),
+    ],
+    commands: [
+      'webstorm',
+      '/Applications/IntelliJ IDEA.app/Contents/MacOS/idea',
+      'wstorm',
     ],
   },
 ]
