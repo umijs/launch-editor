@@ -120,18 +120,22 @@ export default (specifiedEditor): IGuessEdiotr | undefined => {
         .toString();
 
       return COMMON_EDITORS_LINUX.find(item => {
-        const { process } = item;
-        return process.some(p => {
+        const { process, location } = item;
+        const processBy = process.some(p => {
           console.log('output.indexOf(p) > -1', output.indexOf(p) > -1)
           return output.indexOf(p) > -1;
         });
+        if (processBy) {
+          return !!processBy;
+        }
+        console.log('use location find');
 
         // via path location
-        // return location.some(loc => {
-        //   const isExisted = fs.existsSync(loc);
-        //   console.log('loc', loc, isExisted);
-        //   return isExisted;
-        // })
+        return location.some(loc => {
+          const isExisted = fs.existsSync(loc);
+          console.log('loc', loc, isExisted);
+          return isExisted;
+        })
       });
     }
   } catch (error) {
