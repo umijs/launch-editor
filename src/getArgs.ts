@@ -1,4 +1,5 @@
 import * as path from 'path';
+import { getOS } from './utils';
 
 export default (
   editor,
@@ -7,6 +8,7 @@ export default (
   colNumber,
 ) => {
   const editorBasename = path.basename(editor).replace(/\.(exe|cmd|bat)$/i, '');
+  const system = getOS();
   switch (editorBasename) {
     case 'atom':
     case 'Atom':
@@ -35,8 +37,12 @@ export default (
     case 'code':
     case 'Code':
     case 'code-insiders':
-    case 'Code - Insiders':
+    case 'Code - Insiders': {
+      if (system === 'linux') {
+        return ['-r', '-g', '--user-data-dir', path.dirname(fileName), fileName];
+      }
       return ['-r', '-g', `${fileName}:${lineNumber}:${colNumber}`]
+    }
     case 'appcode':
     case 'clion':
     case 'clion64':
