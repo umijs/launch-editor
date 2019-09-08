@@ -1,4 +1,5 @@
 import * as path from 'path';
+import userHome from 'user-home';
 
 export default [
   {
@@ -6,6 +7,7 @@ export default [
     process: ['Visual Studio Code.app'],
     location: [
       path.join('/', 'Applications', 'Visual Studio Code.app'),
+      path.join(userHome, '.vscode'),
     ],
     commands: [
       'code',

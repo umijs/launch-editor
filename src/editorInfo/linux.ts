@@ -1,10 +1,12 @@
-// import * as path from 'path';
+import * as path from 'path';
+import userHome from 'user-home';
 
 export default [
   {
     name: 'code',
     process: ['code'],
     location: [
+      path.join(userHome, '.vscode'),
     ],
     commands: [
       'code',
@@ -15,6 +17,7 @@ export default [
     name: 'code-insiders',
     process: ['code-insiders'],
     location: [
+      path.join(userHome, '.vscode'),
     ],
     commands: [
       'code-insiders',
