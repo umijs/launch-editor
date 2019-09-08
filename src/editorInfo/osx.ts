@@ -1,5 +1,5 @@
 import * as path from 'path';
-import userHome from 'user-home';
+import * as userHome from 'user-home';
 
 export default [
   {
