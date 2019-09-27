@@ -1,8 +1,8 @@
-import * as os from 'os';
 import * as childProcess from 'child_process';
 import * as path from 'path';
 import { ERROR_CODE } from './enum';
 import EditorError from './error';
+import { isWSL, getOS, log } from './utils';
 
 import getArgs from './getArgs';
 
@@ -33,17 +33,7 @@ const openEditor = async ({
       reject(error)
     }
 
-    if (
-      process.platform === 'linux' &&
-      fileName.startsWith('/mnt/') &&
-      /Microsoft/i.test(os.release())
-    ) {
-      // Assume WSL / "Bash on Ubuntu on Windows" is being used, and
-      // that the file exists on the Windows file system.
-      // `os.release()` is "4.4.0-43-Microsoft" in the current release
-      // build of WSL, see: https://github.com/Microsoft/BashOnWindows/issues/423#issuecomment-221627364
-      // When a Windows editor is specified, interop functionality can
-      // handle the path translation, but only if a relative path is used.
+    if (isWSL(fileName)) {
       fileName = path.relative('', fileName);
     }
 
@@ -59,11 +49,12 @@ const openEditor = async ({
       args.push(fileName);
     }
 
+    log('openEditor:commands', commands);
     /* eslint-disable no-restricted-syntax */
     for (const command of commands) {
       try {
         let _childProcess = null;
-        if (process.platform === 'win32') {
+        if (getOS() === 'windows') {
           // On Windows, launch the editor in a shell because spawn can only
           // launch .exe files.
           _childProcess = childProcess.spawnSync(
@@ -74,7 +65,9 @@ const openEditor = async ({
         } else {
           _childProcess = childProcess.spawnSync(command, args, { stdio: 'inherit' });
         }
-        if (_childProcess && _childProcess.status !== null) {
+        if (_childProcess
+          && _childProcess.status !== null
+        ) {
           resolve({
             success: true,
             editorBin: command,

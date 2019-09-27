@@ -6,9 +6,11 @@ export enum ERROR_CODE {
 }
 
 export enum SUPPORTED_EDITTORS {
-  'vscode' = 'VSCode',
-  'sublime' = 'Sublime Text',
-  'atom' = 'Atom',
+  'vscode' = 'code',
+  'sublime' = 'subl',
+  'atom' = 'atom',
+  'webstorm' = 'webstorm',
+  'idea' = 'idea',
 }
 
 export type IEditor = keyof typeof SUPPORTED_EDITTORS;

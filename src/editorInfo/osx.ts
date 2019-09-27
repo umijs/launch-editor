@@ -36,6 +36,7 @@ export default [
     commands: [
       'atom',
       '/Applications/Atom.app/Contents/MacOS/Atom',
+      '/Applications/Atom.app/Contents/Resources/app/atom.sh',
     ],
   },
   {

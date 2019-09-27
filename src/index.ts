@@ -1,56 +1,46 @@
 import * as fs from 'fs';
-// import * as path from 'path';
-// import chalk from 'chalk';
-
-import { parseFile } from './utils';
+import { parseFile, log } from './utils';
 import guessEditor from './guessEditor';
 import openEditor from './openEditor';
 import EditorError from './error';
-import { ERROR_CODE } from './enum';
-// function wrapErrorCallback (cb) {
-//   return (fileName, errorMessage) => {
-//     console.log()
-//     console.log(
-//       chalk.red('Could not open ' + path.basename(fileName) + ' in the editor.')
-//     )
-//     if (errorMessage) {
-//       if (errorMessage[errorMessage.length - 1] !== '.') {
-//         errorMessage += '.'
-//       }
-//       console.log(
-//         chalk.red('The editor process exited with an error: ' + errorMessage)
-//       )
-//     }
-//     console.log()
-//     if (cb) {
-//       cb(fileName, errorMessage)
-//     }
-//   }
-// }
+import { ERROR_CODE, IEditor, SUPPORTED_EDITTORS } from './enum';
 
 interface IOptions {
-  editor?: string;
+  editor?: IEditor;
   editorOpts?: string[];
 }
 
-const launchEditor = async (file: string, options: IOptions = {}) => {
+interface IResultSuccess {
+  success: boolean;
+  editorBin?: string;
+  message?: string;
+}
+
+type IResult = IResultSuccess | EditorError | {} | undefined;
+
+const launchEditor = async (file: string, options: IOptions = {}): Promise<IResult> => {
   const { editor } = options;
   const { fileName, lineNumber, colNumber } = parseFile(file);
   if (!fs.existsSync(fileName)) {
-    return;
+    return {
+      success: false,
+      message: `fileName: ${fileName} not existed`,
+    };
   }
 
-  const guessedEdiotr = guessEditor(editor);
-  if (!guessedEdiotr) {
+  const aliasEditor = SUPPORTED_EDITTORS[editor];
+
+  const guessedEditor = guessEditor(aliasEditor);
+  if (!guessedEditor) {
     throw new EditorError({
-      editor: 'UNKnow',
+      editor: editor || 'UNKNOW',
       success: false,
       code: ERROR_CODE.UNKNOWN,
     })
   }
-  const { name, commands } = guessedEdiotr;
-  console.log('name', name);
-  console.log('commands', commands);
+  const { name, commands } = guessedEditor;
+  log('guessedEditor name', name);
+  log('guessedEditor commands', commands);
 
   const params = {
     fileName,
@@ -58,20 +48,15 @@ const launchEditor = async (file: string, options: IOptions = {}) => {
     colNumber,
   }
 
-  try {
-    await openEditor({
-      name,
-      commands,
-      ...params,
-    });
-    console.log('openEditor after');
-  } catch (e) {
-    console.error('first open', e)
+  const res = await openEditor({
+    name,
+    commands,
+    ...params,
+  });
 
-    // if (err) {
-    //   onErrorCallback(fileName, 'Open editor error');
-    // }
-  }
+  log('launchEditor result', res);
+
+  return res;
 }
 
 export = launchEditor

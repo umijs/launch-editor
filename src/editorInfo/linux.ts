@@ -42,5 +42,14 @@ export default [
       'subl',
     ],
   },
+  {
+    name: 'webstorm',
+    process: ['webstorm', 'webstorm.sh'],
+    location: [
+    ],
+    commands: [
+      'wstorm',
+      'webstorm',
+    ],
+  },
 ]
-
