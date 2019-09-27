@@ -5,7 +5,7 @@ import openEditor from './openEditor';
 import EditorError from './error';
 import { ERROR_CODE, IEditor, SUPPORTED_EDITTORS } from './enum';
 
-interface IOptions {
+export interface IOptions {
   editor?: IEditor;
   editorOpts?: string[];
 }
@@ -16,7 +16,7 @@ interface IResultSuccess {
   message?: string;
 }
 
-type IResult = IResultSuccess | EditorError | {} | undefined;
+export type IResult = IResultSuccess | EditorError | {} | undefined;
 
 const launchEditor = async (file: string, options: IOptions = {}): Promise<IResult> => {
   const { editor } = options;
