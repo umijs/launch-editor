@@ -68,11 +68,13 @@ const openEditor = async ({
         if (_childProcess
           && _childProcess.status !== null
         ) {
-          resolve({
-            success: true,
-            editorBin: command,
-            message: '成功打开编辑器',
-          });
+          setTimeout(() => {
+            resolve({
+              success: true,
+              editorBin: command,
+              message: '成功打开编辑器',
+            });
+          }, 0);
           break;
         }
       } catch (e) {}

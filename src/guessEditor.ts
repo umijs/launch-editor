@@ -9,8 +9,7 @@ import * as childProcess from 'child_process';
 import COMMON_EDITORS_OSX from './editorInfo/osx';
 import COMMON_EDITORS_LINUX from './editorInfo/linux';
 import COMMON_EDITORS_WIN from './editorInfo/windows';
-
-import { getOS } from './utils';
+import { getOS, log } from './utils';
 // import { IEditor } from './enum';
 
 export interface IGuessEdiotr {
@@ -21,14 +20,6 @@ export interface IGuessEdiotr {
 
 export default (specifiedEditor): IGuessEdiotr | undefined => {
   const system = getOS();
-  // if (specifiedEditor) {
-  //   const [editor, ...params] = shellQuote.parse(specifiedEditor);
-  //   return {
-  //     name: editor as IEditor,
-  //     commands:
-  //     opts: params,
-  //   }
-  // }
 
   // We can find out which editor is currently running by:
   // `ps x` on macOS and Linux
@@ -43,13 +34,13 @@ export default (specifiedEditor): IGuessEdiotr | undefined => {
       return COMMON_EDITORS_OSX.find(item => {
         const { process, location } = item;
         const processBy = process.some(p => {
-          console.log('output.indexOf(p) > -1', output.indexOf(p) > -1)
+          log('guessEditor:output.indexOf(p) > -1', output.indexOf(p) > -1)
           return output.indexOf(p) > -1;
         });
         if (processBy) {
           return !!processBy;
         }
-        console.log('use location find');
+        log('guessEditor: use location find');
 
         // via path location
         return location.some(loc => {
@@ -60,9 +51,9 @@ export default (specifiedEditor): IGuessEdiotr | undefined => {
       });
     }
 
-    if (process.platform === 'win32') {
+    if (system === 'windows') {
       if (specifiedEditor) {
-        return COMMON_EDITORS_OSX.find(item => item.name === specifiedEditor);
+        return COMMON_EDITORS_WIN.find(item => item.name === specifiedEditor);
       }
       // Some processes need elevated rights to get its executable path.
       // Just filter them out upfront. This also saves 10-20ms on the command.
@@ -74,41 +65,41 @@ export default (specifiedEditor): IGuessEdiotr | undefined => {
       const runningProcesses = output.split('\r\n');
 
       const windowsEditorsClone = COMMON_EDITORS_WIN;
-      console.log('before windowsEditorsClone', windowsEditorsClone);
+      log('guessEditor: before windowsEditorsClone', windowsEditorsClone);
 
       // 通过进程找编辑器
       const processEditor = windowsEditorsClone.find((item, i) => {
         const { process, location } = item;
         const processBy = process.some(p => {
           const findRunning = runningProcesses.find(runProc => runProc.trim().indexOf(p) > -1);
-          console.log('findRunning', findRunning);
+          log('guessEditor: findRunning', findRunning);
           if (findRunning) {
             windowsEditorsClone[i].commands.unshift(findRunning.trim());
             return true;
           }
           return false;
         });
-        console.log('processBy', processBy);
+        log('guessEditor: processBy', processBy);
         if (processBy) {
           return !!processBy;
         }
-        console.log('use location find');
+        log('guessEditor: use location find');
 
         // via path location
         return location.some(loc => {
           const isExisted = fs.existsSync(loc);
-          console.log('loc', loc, isExisted);
+          log('guessEditor: loc', loc, isExisted);
           return isExisted;
         })
       });
 
-      console.log('after windowsEditorsClone', windowsEditorsClone);
-      console.log('processEditor', processEditor);
+      log('guessEditor: after windowsEditorsClone', windowsEditorsClone);
+      log('guessEditor: processEditor', processEditor);
 
       return processEditor;
     }
 
-    if (process.platform === 'linux') {
+    if (system === 'linux') {
       if (specifiedEditor) {
         return COMMON_EDITORS_LINUX.find(item => item.name === specifiedEditor);
       }
@@ -122,18 +113,18 @@ export default (specifiedEditor): IGuessEdiotr | undefined => {
       return COMMON_EDITORS_LINUX.find(item => {
         const { process, location } = item;
         const processBy = process.some(p => {
-          console.log('output.indexOf(p) > -1', output.indexOf(p) > -1)
+          log('guessEditor: output.indexOf(p) > -1', output.indexOf(p) > -1)
           return output.indexOf(p) > -1;
         });
         if (processBy) {
           return !!processBy;
         }
-        console.log('use location find');
+        log('guessEditor: use location find');
 
         // via path location
         return location.some(loc => {
           const isExisted = fs.existsSync(loc);
-          console.log('loc', loc, isExisted);
+          log('guessEditor: loc', loc, isExisted);
           return isExisted;
         })
       });
@@ -144,13 +135,4 @@ export default (specifiedEditor): IGuessEdiotr | undefined => {
   }
 
   return undefined
-
-  // Last resort, use old skool env vars
-  // if (process.env.VISUAL) {
-  //   return [process.env.VISUAL];
-  // } if (process.env.EDITOR) {
-  //   return [process.env.EDITOR];
-  // }
-
-  // return [null];
 }
