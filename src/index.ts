@@ -3,20 +3,8 @@ import { parseFile, log } from './utils';
 import guessEditor from './guessEditor';
 import openEditor from './openEditor';
 import EditorError from './error';
-import { ERROR_CODE, IEditor, SUPPORTED_EDITTORS } from './enum';
-
-export interface IOptions {
-  editor?: IEditor;
-  editorOpts?: string[];
-}
-
-interface IResultSuccess {
-  success: boolean;
-  editorBin?: string;
-  message?: string;
-}
-
-export type IResult = IResultSuccess | EditorError | {} | undefined;
+import { IResult, IOptions } from './types';
+import { ERROR_CODE, SUPPORTED_EDITTORS } from './enum';
 
 const launchEditor = async (file: string, options: IOptions = {}): Promise<IResult> => {
   const { editor } = options;
