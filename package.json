@@ -28,6 +28,7 @@
   },
   "homepage": "https://github.com/umijs/launch-editor#readme",
   "devDependencies": {
+    "@types/chalk": "^2.2.0",
     "@types/jest": "^24.0.18",
     "@types/node": "^12.7.3",
     "@umijs/fabric": "^1.1.10",
@@ -42,7 +43,6 @@
     "access": "public"
   },
   "dependencies": {
-    "@types/chalk": "^2.2.0",
     "cross-spawn": "^7.0.0",
     "debug": "^4.1.1",
     "user-home": "^2.0.0"
