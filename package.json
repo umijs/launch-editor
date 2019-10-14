@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "dev": "npm run build && node test/test.js",
-    "prepublishOnly": "npm run build && npm run test",
+    "prepublishOnly": "npm run build && npm run test && np --no-cleanup --yolo --no-publish",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "build": "tsc",
     "test": "umi-test --coverage"
@@ -36,7 +36,8 @@
     "coverage": "^0.4.0",
     "nodemon": "^1.19.2",
     "typescript": "^3.6.2",
-    "umi-test": "^1.7.1"
+    "umi-test": "^1.7.1",
+    "np": "^5.0.1"
   },
   "license": "MIT",
   "publishConfig": {
