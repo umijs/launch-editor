@@ -21,6 +21,6 @@ export type ISupportedEditor = {
   [key in IEditor]: {
     command: IEditorExec;
   };
-}
+};
 
 export type SYSTEMS = 'osx' | 'linux' | 'windows';

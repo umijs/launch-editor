@@ -3,15 +3,15 @@ const path = require('path');
 
 (async () => {
   try {
-    await launchEditor(`${path.join(__dirname, 'test.js')}:8:1`)
+    await launchEditor(`${path.join(__dirname, 'test.js')}:8:1`);
   } catch (e) {
     console.error('user error handler', e);
   }
 
   try {
     const res = await launchEditor(`${path.join(__dirname, 'test.js:8:1')}`, {
-      editor: 'atom'
-    })
+      editor: 'atom',
+    });
     console.log('resresres', res);
   } catch (e) {
     console.error('user error handler 2', e);
@@ -19,10 +19,10 @@ const path = require('path');
 
   try {
     const res = await launchEditor(`${path.join(__dirname, 'test.js:8:1')}`, {
-      editor: 'sublime'
-    })
+      editor: 'sublime',
+    });
     console.log('resresres', res);
   } catch (e) {
     console.error('user error handler 2', e);
   }
-})()
+})();
