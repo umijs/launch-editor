@@ -22,15 +22,18 @@ const openEditor = async ({
   args = [],
   fileName,
   lineNumber,
-  colNumber,
+  colNumber
 }) => {
   return new Promise((resolve, reject) => {
     if (!commands.length) {
-      const error = new EditorError({
-        editor: name,
-        code: ERROR_CODE.UNKNOWN,
-      }, 'no editor avalibe');
-      reject(error)
+      const error = new EditorError(
+        {
+          editor: name,
+          code: ERROR_CODE.UNKNOWN
+        },
+        'no editor avalibe'
+      );
+      reject(error);
     }
 
     if (isWSL(fileName)) {
@@ -38,12 +41,7 @@ const openEditor = async ({
     }
 
     if (lineNumber) {
-      const extraArgs = getArgs(
-        name,
-        fileName,
-        lineNumber,
-        colNumber,
-      );
+      const extraArgs = getArgs(name, fileName, lineNumber, colNumber);
       args = args.concat(extraArgs);
     } else {
       args.push(fileName);
@@ -60,18 +58,18 @@ const openEditor = async ({
           _childProcess = childProcess.spawnSync(
             'cmd.exe',
             ['/C', command].concat(args),
-            { stdio: 'inherit' },
+            { stdio: 'inherit' }
           );
         } else {
-          _childProcess = childProcess.spawnSync(command, args, { stdio: 'inherit' });
+          _childProcess = childProcess.spawnSync(command, args, {
+            stdio: 'inherit'
+          });
         }
-        if (_childProcess
-          && _childProcess.status !== null
-        ) {
+        if (_childProcess && _childProcess.status !== null) {
           resolve({
             success: true,
             editorBin: command,
-            message: '成功打开编辑器',
+            message: '成功打开编辑器'
           });
           break;
         }
@@ -79,13 +77,16 @@ const openEditor = async ({
     }
     /* eslint-enable  */
 
-    const error = new EditorError({
-      success: false,
-      editor: name,
-    }, '不能打开编辑器');
+    const error = new EditorError(
+      {
+        success: false,
+        editor: name
+      },
+      '不能打开编辑器'
+    );
 
     reject(error);
   });
-}
+};
 
 export default openEditor;

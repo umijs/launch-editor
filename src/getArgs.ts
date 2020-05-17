@@ -1,12 +1,7 @@
 import * as path from 'path';
 import { getOS } from './utils';
 
-export default (
-  editor,
-  fileName,
-  lineNumber,
-  colNumber,
-) => {
+export default (editor, fileName, lineNumber, colNumber) => {
   const editorBasename = path.basename(editor).replace(/\.(exe|cmd|bat)$/i, '');
   const system = getOS();
   switch (editorBasename) {
@@ -39,9 +34,15 @@ export default (
     case 'code-insiders':
     case 'Code - Insiders': {
       if (system === 'linux') {
-        return ['-r', '-g', '--user-data-dir', path.dirname(fileName), fileName];
+        return [
+          '-r',
+          '-g',
+          '--user-data-dir',
+          path.dirname(fileName),
+          fileName
+        ];
       }
-      return ['-r', '-g', `${fileName}:${lineNumber}:${colNumber}`]
+      return ['-r', '-g', `${fileName}:${lineNumber}:${colNumber}`];
     }
     case 'appcode':
     case 'clion':
@@ -58,11 +59,11 @@ export default (
     case 'webstorm64':
     case 'goland':
     case 'goland64':
-      return ['--line', lineNumber, fileName]
+      return ['--line', lineNumber, fileName];
   }
 
   // For all others, drop the lineNumber until we have
   // a mapping above, since providing the lineNumber incorrectly
   // can result in errors or confusing behavior.
   return [fileName];
-}
+};

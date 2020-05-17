@@ -13,5 +13,5 @@ module.exports = {
     '@typescript-eslint/interface-name-prefix': [0],
     '@typescript-eslint/no-object-literal-type-assertion': [0],
     '@typescript-eslint/no-var-requires': [0]
-  },
+  }
 };

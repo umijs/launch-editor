@@ -6,13 +6,16 @@ import EditorError from './error';
 import { IResult, IOptions } from './types';
 import { ERROR_CODE, SUPPORTED_EDITTORS } from './enum';
 
-const launchEditor = async (file: string, options: IOptions = {}): Promise<IResult> => {
+const launchEditor = async (
+  file: string,
+  options: IOptions = {}
+): Promise<IResult> => {
   const { editor } = options;
   const { fileName, lineNumber, colNumber } = parseFile(file);
   if (!fs.existsSync(fileName)) {
     return {
       success: false,
-      message: `fileName: ${fileName} not existed`,
+      message: `fileName: ${fileName} not existed`
     };
   }
 
@@ -23,8 +26,8 @@ const launchEditor = async (file: string, options: IOptions = {}): Promise<IResu
     throw new EditorError({
       editor: editor || 'UNKNOW',
       success: false,
-      code: ERROR_CODE.UNKNOWN,
-    })
+      code: ERROR_CODE.UNKNOWN
+    });
   }
   const { name, commands } = guessedEditor;
   log('guessedEditor name', name);
@@ -33,18 +36,18 @@ const launchEditor = async (file: string, options: IOptions = {}): Promise<IResu
   const params = {
     fileName,
     lineNumber,
-    colNumber,
-  }
+    colNumber
+  };
 
   const res = await openEditor({
     name,
     commands,
-    ...params,
+    ...params
   });
 
   log('launchEditor result', res);
 
   return res;
-}
+};
 
-export = launchEditor
+export = launchEditor;

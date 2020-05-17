@@ -5,51 +5,33 @@ export default [
   {
     name: 'code',
     process: ['code'],
-    location: [
-      path.join(userHome, '.vscode'),
-    ],
-    commands: [
-      'code',
-    ],
-    opts: [],
+    location: [path.join(userHome, '.vscode')],
+    commands: ['code'],
+    opts: []
   },
   {
     name: 'code-insiders',
     process: ['code-insiders'],
-    location: [
-      path.join(userHome, '.vscode'),
-    ],
-    commands: [
-      'code-insiders',
-    ],
-    opts: [],
+    location: [path.join(userHome, '.vscode')],
+    commands: ['code-insiders'],
+    opts: []
   },
   {
     name: 'atom',
     process: ['atom'],
-    location: [
-    ],
-    commands: [
-      'atom',
-    ],
+    location: [],
+    commands: ['atom']
   },
   {
     name: 'subl',
     process: ['sublime_text'],
-    location: [
-    ],
-    commands: [
-      'subl',
-    ],
+    location: [],
+    commands: ['subl']
   },
   {
     name: 'webstorm',
     process: ['webstorm', 'webstorm.sh'],
-    location: [
-    ],
-    commands: [
-      'wstorm',
-      'webstorm',
-    ],
-  },
-]
+    location: [],
+    commands: ['wstorm', 'webstorm']
+  }
+];

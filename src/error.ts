@@ -5,11 +5,7 @@ export default class EditorError extends Error {
 
   public code?: string;
 
-  public constructor({
-    editor = '',
-    code = '',
-    success = false,
-  }, ...params) {
+  public constructor({ editor = '', code = '', success = false }, ...params) {
     super(...params);
 
     if (Error.captureStackTrace) {
