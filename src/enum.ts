@@ -2,7 +2,7 @@ export enum ERROR_CODE {
   UNKNOWN = 'UNKNOWN',
   EPERM = 'EPERM',
   ERROR = 'ERROR',
-  OTHER = 'OTHER',
+  OTHER = 'OTHER'
 }
 
 export enum SUPPORTED_EDITTORS {
@@ -10,7 +10,7 @@ export enum SUPPORTED_EDITTORS {
   'sublime' = 'subl',
   'atom' = 'atom',
   'webstorm' = 'webstorm',
-  'idea' = 'idea',
+  'idea' = 'idea'
 }
 
 export type IEditor = keyof typeof SUPPORTED_EDITTORS;

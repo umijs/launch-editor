@@ -22,14 +22,14 @@ const openEditor = async ({
   args = [],
   fileName,
   lineNumber,
-  colNumber,
+  colNumber
 }) => {
   return new Promise((resolve, reject) => {
     if (!commands.length) {
       const error = new EditorError(
         {
           editor: name,
-          code: ERROR_CODE.UNKNOWN,
+          code: ERROR_CODE.UNKNOWN
         },
         'no editor avalibe'
       );
@@ -62,14 +62,14 @@ const openEditor = async ({
           );
         } else {
           _childProcess = childProcess.spawnSync(command, args, {
-            stdio: 'inherit',
+            stdio: 'inherit'
           });
         }
         if (_childProcess && _childProcess.status !== null) {
           resolve({
             success: true,
             editorBin: command,
-            message: '成功打开编辑器',
+            message: '成功打开编辑器'
           });
           break;
         }
@@ -80,7 +80,7 @@ const openEditor = async ({
     const error = new EditorError(
       {
         success: false,
-        editor: name,
+        editor: name
       },
       '不能打开编辑器'
     );

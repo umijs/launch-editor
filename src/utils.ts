@@ -41,6 +41,6 @@ export const parseFile: IParseFile = (file) => {
   return {
     fileName,
     lineNumber: lineNumber || '',
-    colNumber: colNumber || '',
+    colNumber: colNumber || ''
   };
 };

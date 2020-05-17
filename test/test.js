@@ -10,7 +10,7 @@ const path = require('path');
 
   try {
     const res = await launchEditor(`${path.join(__dirname, 'test.js:8:1')}`, {
-      editor: 'atom',
+      editor: 'atom'
     });
     console.log('resresres', res);
   } catch (e) {
@@ -19,7 +19,7 @@ const path = require('path');
 
   try {
     const res = await launchEditor(`${path.join(__dirname, 'test.js:8:1')}`, {
-      editor: 'sublime',
+      editor: 'sublime'
     });
     console.log('resresres', res);
   } catch (e) {

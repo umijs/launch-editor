@@ -39,7 +39,7 @@ export default (editor, fileName, lineNumber, colNumber) => {
           '-g',
           '--user-data-dir',
           path.dirname(fileName),
-          fileName,
+          fileName
         ];
       }
       return ['-r', '-g', `${fileName}:${lineNumber}:${colNumber}`];

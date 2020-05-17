@@ -6,35 +6,52 @@ export default [
     name: 'code',
     process: ['Code.exe'],
     location: [
-      path.join(os.homedir(), 'AppData', 'Local', 'Programs', 'Microsoft VS Code'),
+      path.join(
+        os.homedir(),
+        'AppData',
+        'Local',
+        'Programs',
+        'Microsoft VS Code'
+      )
     ],
     commands: [
       'code',
-      path.join(os.homedir(), 'AppData', 'Local', 'Programs', 'Microsoft VS Code', 'bin', 'code.cmd'),
+      path.join(
+        os.homedir(),
+        'AppData',
+        'Local',
+        'Programs',
+        'Microsoft VS Code',
+        'bin',
+        'code.cmd'
+      )
     ],
-    opts: [],
+    opts: []
   },
   {
     name: 'subl',
     process: ['sublime_text.exe'],
     location: [
       path.join(os.homedir(), '..', 'Program Files', 'Sublime Text 3'),
-      path.join(os.homedir(), '..', 'Program Files', 'Sublime Text'),
+      path.join(os.homedir(), '..', 'Program Files', 'Sublime Text')
     ],
     commands: [
       'subl',
-      path.join(os.homedir(), '..', 'Program Files', 'Sublime Text 3', 'subl.exe'),
+      path.join(
+        os.homedir(),
+        '..',
+        'Program Files',
+        'Sublime Text 3',
+        'subl.exe'
+      )
     ],
-    opts: [],
+    opts: []
   },
   {
     name: 'webstorm',
     process: ['webstorm.exe', 'webstorm64.exe'],
     location: [],
-    commands: [
-      'webstorm',
-      'wstorm',
-    ],
-    opts: [],
-  },
-]
+    commands: ['webstorm', 'wstorm'],
+    opts: []
+  }
+];
